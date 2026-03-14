@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Em nói gì đây nè?</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style-main.css" />
+
+  <style>
+    .choice-wrapper {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .choice-title {
+      font-family: "Dancing Script", cursive;
+      font-size: 2.4rem;
+      margin-bottom: 10px;
+      text-shadow: 0 0 14px rgba(255, 182, 193, 0.8);
+    }
+
+    .choice-text {
+      font-size: 0.96rem;
+      opacity: 0.9;
+      margin-bottom: 22px;
+    }
+
+    .buttons-row {
+      display: inline-flex;
+      gap: 12px;
+      position: relative;
+    }
+
+    #btn-no {
+      position: relative;
+      min-width: 110px;
+    }
+
+    .celebrate {
+      margin-top: 26px;
+      font-size: 0.95rem;
+      opacity: 0.9;
+      display: none;
+    }
+
+    .celebrate.show {
+      display: block;
+      animation: popIn 0.4s ease-out forwards;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.7); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="floating-heart h1"></div>
+    <div class="floating-heart h2"></div>
+    <div class="floating-heart h3"></div>
+    <div class="floating-heart h4"></div>
+
+    <div class="choice-wrapper">
+      <div class="choice-title">Vậy… em trả lời sao? 🥺</div>
+      <p class="choice-text">
+        Em trả lời thật lòng là được, nhưng anh cũng thú thật là… anh đang hy vọng được nhìn thấy chữ <span class="highlight">“Đồng ý”</span> lắm luôn.
+      </p>
+
+      <div class="buttons-row">
+        <button id="btn-yes" class="btn-main">Em đồng ý 💖</button>
+        <button id="btn-no" class="btn-ghost">Để suy nghĩ đã 🙈</button>
+      </div>
+
+      <div id="celebrate" class="celebrate">
+        Tuyệt vời hơn cả anh tưởng tượng luôn! Anh hứa sẽ chuẩn bị một buổi hẹn thật đẹp, nhẹ nhàng và làm em vui hết mức có thể. 🌙✨
+      </div>
+
+      <div class="nav-small" style="margin-top: 18px;">
+        Nếu em muốn đọc lại lời mời: <a href="./ask-out.html">Quay lại trang mời đi chơi</a> ·
+        Hoặc mở lại lá thư: <a href="./index.html">Trang lá thư 💌</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const btnYes = document.getElementById('btn-yes');
+    const btnNo = document.getElementById('btn-no');
+    const celebrate = document.getElementById('celebrate');
+
+    let noClickCount = 0;
+
+    btnYes.addEventListener('click', () => {
+      celebrate.classList.add('show');
+      btnYes.textContent = 'Yayyy 💘';
+    });
+
+    function moveNoButton() {
+      const container = document.querySelector('.buttons-row');
+      const rect = container.getBoundingClientRect();
+
+      const maxX = rect.width - btnNo.offsetWidth;
+      const randomX = Math.random() * maxX;
+      const randomY = (Math.random() - 0.5) * 24;
+
+      btnNo.style.transform = `translate(${randomX}px, ${randomY}px)`;
+    }
+
+    btnNo.addEventListener('mouseenter', () => {
+      noClickCount++;
+      if (noClickCount <= 6) {
+        moveNoButton();
+        if (noClickCount === 3) {
+          btnNo.textContent = 'Thôi màaa 😭';
+        } else if (noClickCount === 5) {
+          btnNo.textContent = 'Ấn “Đồng ý” đi nè 💗';
+        }
+      }
+    });
+
+    btnNo.addEventListener('click', () => {
+      noClickCount++;
+      if (noClickCount >= 6) {
+        moveNoButton();
+      }
+    });
+  </script>
+</body>
+</html>
+

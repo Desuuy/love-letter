@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Love Letter</title>
+
+  <!-- Font chữ mềm, lãng mạn -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- CSS hiệu ứng phong bì & tim -->
+  <link rel="stylesheet" href="./love letter 2.css" />
+
+  <!-- jQuery (bắt buộc vì code dùng $(document).ready) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #ffe6f6 0, #f0e6f6 40%, #1b1029 100%);
+      color: #fff;
+      overflow: hidden;
+    }
+
+    .page-wrapper {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .title {
+      font-family: "Dancing Script", cursive;
+      font-size: 2.8rem;
+      margin-bottom: 9px;
+      letter-spacing: 1px;
+      color: #4b2144;
+      background: rgba(255, 255, 255, 0.96);
+      display: inline-block;
+      padding: 8px 26px;
+      border-radius: 999px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      margin-top: 4px;
+      margin-bottom: 28px;
+      color: #4b2144;
+      background: #ffffff;
+      display: inline-block;
+      padding: 6px 18px;
+      border-radius: 999px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .glow {
+      text-shadow: none;
+    }
+
+    /* Overlay lá thư lớn */
+    #full-letter-overlay {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(255, 230, 246, 0.95) 0, rgba(240, 230, 246, 0.96) 40%, rgba(27, 16, 41, 0.4) 100%);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    #full-letter-overlay.show {
+      display: flex;
+    }
+
+    .full-letter-card {
+      max-width: 640px;
+      width: 90%;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.25);
+      padding: 26px 26px 22px;
+      position: relative;
+      font-family: "Dancing Script", cursive;
+      color: #c2185b;
+    }
+
+    .full-letter-title {
+      font-size: 2.1rem;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .full-letter-body {
+      font-size: 1.4rem;
+      line-height: 1.8;
+      margin-top: 6px;
+      white-space: pre-line;
+    }
+
+    .full-letter-sign {
+      margin-top: 18px;
+      text-align: right;
+      font-size: 1.5rem;
+    }
+
+    #close-full-letter {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      border: none;
+      background: transparent;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: #b71c1c;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <div class="title glow">Love Letter For You 💌</div>
+
+    <div class="envlope-wrapper">
+      <div id="envelope" class="close">
+        <div class="front flap"></div>
+        <div class="front pocket"></div>
+
+        <div class="letter">
+          <div class="words line1"></div>
+          <div class="words line2">Gửi em, người đặc biệt nhất</div>
+          <div class="words line3">Mỗi nhịp tim anh đều thì thầm rằng</div>
+          <div class="words line4">“Anh thương em rất nhiều” ❤️</div>
+        </div>
+
+        <div class="hearts">
+          <div class="heart a1"></div>
+          <div class="heart a2"></div>
+          <div class="heart a3"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reset">
+      <button id="open">Mở thư</button>
+      <button id="reset">Đóng lại</button>
+      <br />
+      <a href="./ask-out.html" style="display:inline-block;margin-top:10px;font-size:0.9rem;color:#b3125d;text-decoration:none;background:rgba(255,255,255,0.9);padding:4px 14px;border-radius:999px;box-shadow:0 3px 8px rgba(0,0,0,0.08);">
+        Mời bé đi chơi nha <span style="font-size:0.85em;color:#666;">(nhấn vào đây nha)</span>✨
+      </a>
+    </div>
+  </div>
+
+  <!-- Lá thư lớn, hiện khi nhấn "Mở thư" -->
+  <div id="full-letter-overlay">
+    <div class="full-letter-card">
+      <button id="close-full-letter" title="Đóng lại">✕</button>
+      <div class="full-letter-title">Gửi em, người đặc biệt nhất 💌</div>
+      <div class="full-letter-body">
+        Mỗi lần nghĩ về em, trong đầu anh luôn hiện lên cảm giác rất yên và rất ấm.
+        Giữa bao nhiêu chuyện hỗn độn của ngày thường, chỉ cần một tin nhắn hay một nụ cười của em,
+        mọi thứ như nhẹ đi hẳn.
+
+        Anh không giỏi nói những lời hoa mỹ, nên anh chọn cách viết ra từng chữ,
+        mong em đọc được hết những điều anh chưa dám nói thành lời.
+
+        Nếu em cho anh cơ hội, anh muốn được xuất hiện trong những ngày vui của em,
+        và nếu có thể, được nắm tay em đi qua cả những ngày không vui nữa.
+      </div>
+      <div class="full-letter-sign">
+        Anh.
+      </div>
+    </div>
+  </div>
+
+  <!-- Gắn file JS điều khiển phong bì -->
+  <script src="./love-letter-2.js"></script>
+</body>
+</html>
